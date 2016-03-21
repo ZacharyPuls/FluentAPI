@@ -1,6 +1,6 @@
 package com.zachpuls.website;
 
-import com.zachpuls.api.render.BootstrapRenderer;
+import com.zachpuls.api.view.render.BootstrapRenderer;
 
 /**
  * Created by zpuls on 3/8/2016.

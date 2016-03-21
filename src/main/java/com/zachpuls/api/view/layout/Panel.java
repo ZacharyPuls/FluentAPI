@@ -1,4 +1,4 @@
-package com.zachpuls.api.layout;
+package com.zachpuls.api.view.layout;
 
 /**
  * Created by zpuls on 3/17/2016.

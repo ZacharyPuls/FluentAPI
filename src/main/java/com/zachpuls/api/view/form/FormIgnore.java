@@ -1,4 +1,4 @@
-package com.zachpuls.api.model;
+package com.zachpuls.api.view.form;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

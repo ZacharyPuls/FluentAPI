@@ -1,4 +1,4 @@
-package com.zachpuls.api.layout;
+package com.zachpuls.api.view.layout;
 
 import j2html.tags.ContainerTag;
 
@@ -7,5 +7,5 @@ import j2html.tags.ContainerTag;
  */
 
 public interface ILayout {
-    public abstract ContainerTag getContainer();
+    public abstract ContainerTag render();
 }

@@ -1,4 +1,6 @@
-package com.zachpuls.api.model;
+package com.zachpuls.api.view.form;
+
+import com.zachpuls.api.model.Element;
 
 import java.util.ArrayList;
 import java.util.List;

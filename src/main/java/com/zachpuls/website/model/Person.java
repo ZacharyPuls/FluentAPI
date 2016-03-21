@@ -1,6 +1,6 @@
 package com.zachpuls.website.model;
 
-import com.zachpuls.api.model.IGenerateForm;
+import com.zachpuls.api.view.form.IGenerateForm;
 
 /**
  * Created by zpuls on 3/18/2016.

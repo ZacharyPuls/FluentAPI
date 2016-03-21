@@ -1,6 +1,5 @@
-package com.zachpuls.api.layout;
+package com.zachpuls.api.view.layout;
 
-import j2html.TagCreator;
 import j2html.tags.ContainerTag;
 
 import java.util.ArrayList;
@@ -15,16 +14,12 @@ public class FluidThirdsLayout implements ILayout {
 
     List<ContainerTag> containerTags = new ArrayList<>();
 
-    @Override
-    public ContainerTag getContainer() {
-        return div().withClass("container-fluid");
-    }
-
     public FluidThirdsLayout addComponent(ContainerTag component) {
         containerTags.add(component);
         return this;
     }
 
+    @Override
     public ContainerTag render() {
 
         ContainerTag left = div().withClass("col-md-4");
@@ -41,7 +36,7 @@ public class FluidThirdsLayout implements ILayout {
             }
         }
 
-        return getContainer().with(left, center, right);
+        return div().withClass("container-fluid").with(left, center, right);
     }
 
 }

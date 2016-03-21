@@ -1,7 +1,7 @@
 package com.zachpuls.website.model;
 
-import com.zachpuls.api.model.FormIgnore;
-import com.zachpuls.api.model.IGenerateForm;
+import com.zachpuls.api.view.form.FormIgnore;
+import com.zachpuls.api.view.form.IGenerateForm;
 
 /**
  * Created by zpuls on 3/17/2016.

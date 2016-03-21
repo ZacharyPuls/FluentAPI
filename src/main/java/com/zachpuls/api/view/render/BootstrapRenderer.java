@@ -1,9 +1,11 @@
-package com.zachpuls.api.render;
+package com.zachpuls.api.view.render;
 
-import com.zachpuls.api.layout.FluidThirdsLayout;
+import com.zachpuls.api.view.layout.CardLayout;
+import com.zachpuls.api.view.layout.FluidThirdsLayout;
 import com.zachpuls.api.model.FieldType;
-import com.zachpuls.api.model.FormIgnore;
-import com.zachpuls.api.model.IGenerateForm;
+import com.zachpuls.api.view.form.FormIgnore;
+import com.zachpuls.api.view.form.IGenerateForm;
+import com.zachpuls.api.view.layout.Panel;
 import j2html.tags.ContainerTag;
 import org.apache.commons.lang3.StringUtils;
 import org.reflections.Reflections;
@@ -26,7 +28,7 @@ public class BootstrapRenderer {
         return "Material Design Bootstrap Renderer";
     }
 
-    public String render(Class<?> clazz) {
+    public String renderForm(Class<?> clazz) {
 
         ContainerTag formData = form();
 
@@ -61,11 +63,18 @@ public class BootstrapRenderer {
     public void renderAll() throws FileNotFoundException {
         new Reflections().getSubTypesOf(IGenerateForm.class).forEach(clazz -> {
             try {
-                new FileOutputStream("src/main/resources/" + clazz.getSimpleName() + ".html").write(this.render(clazz).getBytes(Charset.forName("UTF-8")));
+                new FileOutputStream("src/main/resources/" + clazz.getSimpleName() + ".html").write(this.renderForm(clazz).getBytes(Charset.forName("UTF-8")));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
+
+        try {
+            new FileOutputStream("src/main/resources/People.html").write(
+                    html().with(Head.getHead(), body().with(new CardLayout().render())).render().getBytes(Charset.forName("UTF-8")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     protected String parseName(String id) {

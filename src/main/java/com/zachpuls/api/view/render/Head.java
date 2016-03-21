@@ -1,4 +1,4 @@
-package com.zachpuls.api.render;
+package com.zachpuls.api.view.render;
 
 import j2html.tags.ContainerTag;
 

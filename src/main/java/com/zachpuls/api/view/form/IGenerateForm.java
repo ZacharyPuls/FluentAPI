@@ -1,4 +1,4 @@
-package com.zachpuls.api.model;
+package com.zachpuls.api.view.form;
 
 /**
  * Created by zpuls on 3/17/2016.
