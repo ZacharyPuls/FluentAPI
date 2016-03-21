@@ -1,5 +1,6 @@
 package com.zachpuls.api.render;
 
+import com.zachpuls.api.layout.FluidThirdsLayout;
 import com.zachpuls.api.model.FieldType;
 import com.zachpuls.api.model.FormIgnore;
 import com.zachpuls.api.model.IGenerateForm;
@@ -22,7 +23,7 @@ import static j2html.TagCreator.*;
 public class BootstrapRenderer {
 
     public String getName() {
-        return "Bootstrap 4 Renderer";
+        return "Material Design Bootstrap Renderer";
     }
 
     public String render(Class<?> clazz) {
@@ -31,7 +32,7 @@ public class BootstrapRenderer {
 
         for (Field field : clazz.getFields()) {
             if (!field.isAnnotationPresent(FormIgnore.class)) {
-                formData = formData.with(
+                formData.with(
                         fieldset().withClass("form-group").with(
                                 label().attr("for", field.getName()).withText(parseName(field.getName())),
                                 input().withId(field.getName()).withType(FieldType.fromClass(field.getType()))
@@ -41,20 +42,18 @@ public class BootstrapRenderer {
             }
         }
 
+        formData.with(a().withClass("btn btn-default waves-effect waves-light").withText("Submit"));
+        formData.with(a().withClass("btn btn-default waves-effect waves-light").withText("Cancel"));
+
         return html().with(
                 Head.getHead(),
                 body().with(
-                        div().withClass("container-fluid").with(
-                                div().withClass("row").with(
-                                        div().withClass("col-md-12").with(
-                                                div().withClass("card").with(
-                                                        div().withClass("card-content").with(
-                                                                h4(),
-                                                                formData
-                                                        ))
-                                        )
-                                )
-                        )
+                        new FluidThirdsLayout().addComponent(div()).addComponent(
+                                div().withClass("card").with(
+                                        div().withClass("card-content").with(
+                                                h4(),
+                                                formData
+                                        ))).addComponent(div()).render()
                 )).render();
     }
 
