@@ -1,5 +1,6 @@
 package com.zachpuls.website;
 
+import com.zachpuls.api.controller.RESTListener;
 import com.zachpuls.api.view.render.BootstrapRenderer;
 
 /**
@@ -10,6 +11,7 @@ public class Website {
 
     public static void main(String[] args) throws Exception {
         new BootstrapRenderer().renderAll();
+        new RESTListener().run();
         /*ServletContextHandler servletContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         servletContextHandler.setContextPath("/");
 

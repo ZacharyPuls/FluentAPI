@@ -2,6 +2,7 @@ package com.zachpuls.api.view.layout;
 
 import com.zachpuls.api.model.Dataset;
 import com.zachpuls.api.model.TestPersonDataset;
+import com.zachpuls.api.util.Utils;
 import j2html.tags.ContainerTag;
 
 import java.lang.reflect.Field;
@@ -31,7 +32,7 @@ public class CardLayout implements ILayout {
 
             for (Field field : object.getClass().getFields()) {
                 try {
-                    cardContent.with(p().withText(field.getName() + ": " + field.get(object).toString()));
+                    cardContent.with(p().withText(Utils.parseName(field.getName()) + ": " + field.get(object).toString()));
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }

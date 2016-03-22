@@ -1,5 +1,7 @@
 package com.zachpuls.api.view.render;
 
+import com.google.gson.Gson;
+import com.zachpuls.api.util.Utils;
 import com.zachpuls.api.view.layout.CardLayout;
 import com.zachpuls.api.view.layout.FluidThirdsLayout;
 import com.zachpuls.api.model.FieldType;
@@ -15,6 +17,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 import static j2html.TagCreator.*;
 
@@ -31,21 +35,28 @@ public class BootstrapRenderer {
     public String renderForm(Class<?> clazz) {
 
         ContainerTag formData = form();
+        List<String> inputIds = new ArrayList<>();
 
         for (Field field : clazz.getFields()) {
             if (!field.isAnnotationPresent(FormIgnore.class)) {
                 formData.with(
                         fieldset().withClass("form-group").with(
-                                label().attr("for", field.getName()).withText(parseName(field.getName())),
+                                label().attr("for", field.getName()).withText(Utils.parseName(field.getName())),
                                 input().withId(field.getName()).withType(FieldType.fromClass(field.getType()))
                                         .withClass("form-control")
                         )
                 );
+
+                inputIds.add("$('" + field.getName() + ").val()");
             }
         }
 
-        formData.with(a().withClass("btn btn-default waves-effect waves-light").withText("Submit"));
-        formData.with(a().withClass("btn btn-default waves-effect waves-light").withText("Cancel"));
+        formData.with(
+                a().withId("btnSubmit").withClass("btn btn-default waves-effect waves-light").withText("Submit"),
+                script().withText("$('#btnSubmit').click(function(){$.ajax({type:'POST',url:'/" + clazz.getSimpleName().toLowerCase() + "',data:" + new Gson().toJson(inputIds) + "});});"
+                ));
+
+        formData.with(a().withId("btnCancel").withClass("btn btn-default waves-effect waves-light").withText("Cancel"));
 
         return html().with(
                 Head.getHead(),
@@ -77,7 +88,4 @@ public class BootstrapRenderer {
         }
     }
 
-    protected String parseName(String id) {
-        return StringUtils.capitalize(StringUtils.join(id.split("(?=\\p{Upper})"), " "));
-    }
 }
